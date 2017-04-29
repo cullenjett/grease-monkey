@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import User from './components/User';
+import User from './components/user/User';
 
 class App extends Component {
   render() {
