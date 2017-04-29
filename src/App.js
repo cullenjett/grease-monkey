@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 
-import User from './components/user/User';
+import Users from './components/user/Users';
 
 class App extends Component {
   render() {
     return (
-      <div className="container">
-        <User />
-      </div>
+      <Router>
+        <div className="container">
+          <Switch>
+            <Redirect exact from="/" to="/users" />
+            <Route path="/users" component={Users} />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
