@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
+import User from './components/User';
 
 class App extends Component {
   render() {
     return (
-      <div>
-      <h1>App</h1>
+      <div className="container">
+        <User />
       </div>
     );
   }
