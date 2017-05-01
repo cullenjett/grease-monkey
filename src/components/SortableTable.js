@@ -3,28 +3,7 @@ import React, { Component } from 'react';
 class SortableTable extends Component {
   state = {
     sortBy: null,
-    sortReverse: false,
-    data: []
-  }
-
-  componentDidMount() {
-    const data = [];
-    let id = 1;
-
-    for (let i = 0; i < 100; i++) {
-      let fakeData = window.faker.helpers.userCard();
-      data.push({
-        id: id++,
-        name: fakeData.name,
-        email: fakeData.email,
-        phone: fakeData.phone,
-        website: fakeData.website
-      })
-    }
-
-    this.setState({
-      data
-    });
+    sortReverse: false
   }
 
   setSortBy = (propertyName) => {
@@ -37,7 +16,8 @@ class SortableTable extends Component {
   }
 
   getSortedData() {
-    const { data, sortBy, sortReverse } = this.state;
+    const { data } = this.props;
+    const { sortBy, sortReverse } = this.state;
 
     if (!sortBy) {
       return data;
@@ -56,12 +36,8 @@ class SortableTable extends Component {
     return sortedData;
   }
 
-  onClickRow = (id) => {
-    console.log(id);
-  }
-
   render() {
-    const { data } = this.state;
+    const { data, onClickRow } = this.props;
     const sortedData = this.getSortedData();
     const dataProperties = data[0] ? Object.keys(data[0]) : []
 
@@ -81,7 +57,7 @@ class SortableTable extends Component {
         </thead>
         <tbody>
           {sortedData.map(data => (
-            <tr key={data.id} onClick={() => this.onClickRow(data.id)}>
+            <tr key={data.id} onClick={() => onClickRow(data.id)}>
               {dataProperties.map((propertyName, i) => (
                 <td key={`${data.id}-${propertyName}`}>{data[propertyName]}</td>
               ))}

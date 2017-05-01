@@ -4,28 +4,33 @@ import { Route, Link } from 'react-router-dom';
 import UserTable from './UserTable';
 import UserForm from './UserForm';
 
-const initialState = {
-  users: [
-    {
-      id: 1,
-      first_name: 'Cullen',
-      last_name: 'Jett',
-      email: 'cullenjett@gmail.com',
-      password: 'Password1',
-      activation_state: 'CO'
-    }
-  ]
-};
-
 class Users extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = initialState;
+  state = {
+    users: []
   }
 
-  handleClickUserRow = (user) => {
-    this.props.history.push(`/users/${user.id}`);
+  componentDidMount() {
+    const users = [];
+    let id = 1;
+
+    for (let i = 0; i < 100; i++) {
+      users.push({
+        id: id++,
+        first_name: window.faker.name.firstName(),
+        last_name: window.faker.name.lastName(),
+        email: window.faker.internet.email(),
+        password: window.faker.internet.password(),
+        activation_state: window.faker.address.stateAbbr()
+      })
+    }
+
+    this.setState({
+      users
+    });
+  }
+
+  handleClickUserRow = (userId) => {
+    this.props.history.push(`/users/${userId}`);
   }
 
   handleCreateUser = (userDetails) => {
