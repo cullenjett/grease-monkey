@@ -10,8 +10,12 @@ class Users extends Component {
     users: database.users
   }
 
+  handleClickNewUser = () => {
+    this.props.history.push('/users/new');
+  }
+
   handleClickUserRow = (userId) => {
-    this.props.history.push(`/users/${userId}`);
+    this.props.history.push(`/users/${userId}/edit`);
   }
 
   handleCreateUser = (userDetails) => {
@@ -37,22 +41,28 @@ class Users extends Component {
   render() {
     return (
       <section className="row">
-        <div className="col-sm-8">
-          <h3 className="page-header">Users</h3>
-          <UserTable users={this.state.users} onClick={this.handleClickUserRow} />
-        </div>
-
-        <div className="col-sm-4">
+        <div className="col-xs-12">
           <Route exact path="/users" render={() => (
             <div>
-              <h3 className="page-header">Create User</h3>
+              <h3 className="page-header">Users</h3>
+              <button className="btn btn-primary" onClick={this.handleClickNewUser}>New User</button>
+              <UserTable users={this.state.users} onClick={this.handleClickUserRow} />
+            </div>
+          )}/>
+
+          <Route exact path="/users/new" render={() => (
+            <div>
+              <h3 className="page-header">
+                Create User
+                <Link to="/users" className="pull-right close">X</Link>
+              </h3>
               <div className="well">
                 <UserForm onSubmit={this.handleCreateUser} />
               </div>
             </div>
           )}/>
 
-          <Route exact path="/users/:id" render={({ match }) => (
+          <Route exact path="/users/:id/edit" render={({ match }) => (
             <div>
               <h3 className="page-header">
                 Edit User
