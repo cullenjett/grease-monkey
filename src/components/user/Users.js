@@ -1,32 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import database from '../../database';
 
 import UserTable from './UserTable';
 import UserForm from './UserForm';
 
 class Users extends Component {
   state = {
-    users: []
-  }
-
-  componentDidMount() {
-    const users = [];
-    let id = 1;
-
-    for (let i = 0; i < 100; i++) {
-      users.push({
-        id: id++,
-        first_name: window.faker.name.firstName(),
-        last_name: window.faker.name.lastName(),
-        email: window.faker.internet.email(),
-        password: window.faker.internet.password(),
-        activation_state: window.faker.address.stateAbbr()
-      })
-    }
-
-    this.setState({
-      users
-    });
+    users: database.users
   }
 
   handleClickUserRow = (userId) => {
@@ -78,7 +59,7 @@ class Users extends Component {
                 <Link to="/users" className="pull-right close">X</Link>
               </h3>
               <div className="well">
-                <UserForm onSubmit={this.handleEditUser} user={this.state.users.find(user => user.id === +match.params.id)} />
+                <UserForm onSubmit={this.handleEditUser} user={this.state.users.find(user => user.id === match.params.id)} />
               </div>
             </div>
           )}/>

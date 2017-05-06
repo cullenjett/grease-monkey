@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 
 import Users from './components/user/Users';
-import SortableTable from './components/SortableTable';
 
 class App extends Component {
   render() {
@@ -15,9 +14,8 @@ class App extends Component {
       <Router>
         <div className="container">
           <Switch>
-            <Redirect exact from="/" to="/users" />
             <Route path="/users" component={Users} />
-            <Route path="/table" component={SortableTable} />
+            <Redirect from="/" to="/users" />
           </Switch>
         </div>
       </Router>
