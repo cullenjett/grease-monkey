@@ -50,13 +50,15 @@ class Users extends Component {
   render() {
     const { users, search } = this.state
     const filteredUsers = users.filter(user => {
-      return (
-        user.id.match(new RegExp(search, 'gi')) ||
-        user.first_name.match(new RegExp(search, 'gi')) ||
-        user.last_name.match(new RegExp(search, 'gi')) ||
-        user.email.match(new RegExp(search, 'gi')) ||
-        user.activation_state.match(new RegExp(search, 'gi'))
-      )
+      let userDetailString = [
+        user.id,
+        user.first_name,
+        user.last_name,
+        user.email,
+        user.activation_state
+      ].join("%");
+
+      return userDetailString.match(new RegExp(search, 'gi'));
     });
 
     return (
