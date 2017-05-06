@@ -1,7 +1,7 @@
 import faker from 'faker';
 
 const users = [];
-const userId = 1;
+let userId = 100;
 for (let i = 0; i < 100; i++) {
   users.push({
     id: (userId++).toString(),
@@ -13,6 +13,29 @@ for (let i = 0; i < 100; i++) {
   });
 }
 
+const vehicles = [];
+let vehicleId = 200;
+for (let i = 0; i < 100; i++) {
+  vehicles.push({
+    id: (vehicleId++).toString(),
+    year: randomNumberInRange(2000, 2017),
+    make: pickRandomFrom(['Toyota', 'Volkswagen', 'BMW', 'Mazda', 'Ford']),
+    model: pickRandomFrom(['Prius', 'Golf', '335i', 'CX-5', 'Focus']),
+    color: pickRandomFrom(['Red', 'White', 'Blue', 'Silver', 'Black']),
+    relatedUser: randomNumberInRange(100, 199)
+  });
+}
+
 export default {
-  users
+  users,
+  vehicles
 };
+
+function randomNumberInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function pickRandomFrom(array) {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}
