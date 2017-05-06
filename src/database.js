@@ -1,9 +1,10 @@
 import faker from 'faker';
 
 const users = [];
+const userId = 1;
 for (let i = 0; i < 100; i++) {
   users.push({
-    id: faker.random.uuid(),
+    id: (userId++).toString(),
     first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
     email: faker.internet.email(),

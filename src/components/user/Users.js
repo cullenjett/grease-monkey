@@ -7,7 +7,15 @@ import UserForm from './UserForm';
 
 class Users extends Component {
   state = {
-    users: database.users
+    users: database.users,
+    search: ''
+  }
+
+  handleChangeSearch = (e) => {
+    const search = e.target.value;
+    this.setState({
+      search
+    });
   }
 
   handleClickNewUser = () => {
@@ -22,6 +30,7 @@ class Users extends Component {
     this.setState((prevState) => ({
       users: prevState.users.concat(userDetails)
     }));
+    this.props.history.push('/users');
   }
 
   handleEditUser = (userDetails) => {
@@ -39,14 +48,37 @@ class Users extends Component {
   }
 
   render() {
+    const { users, search } = this.state
+    const filteredUsers = users.filter(user => {
+      return (
+        user.id.match(new RegExp(search, 'gi')) ||
+        user.first_name.match(new RegExp(search, 'gi')) ||
+        user.last_name.match(new RegExp(search, 'gi')) ||
+        user.email.match(new RegExp(search, 'gi')) ||
+        user.activation_state.match(new RegExp(search, 'gi'))
+      )
+    });
+
     return (
       <section className="row">
         <div className="col-xs-12">
           <Route exact path="/users" render={() => (
             <div>
               <h3 className="page-header">Users</h3>
-              <button className="btn btn-primary" onClick={this.handleClickNewUser}>New User</button>
-              <UserTable users={this.state.users} onClick={this.handleClickUserRow} />
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  style={{
+                    maxWidth: '500px',
+                    display: 'inline-block'
+                  }}
+                  placeholder="Search..."
+                  onChange={this.handleChangeSearch}
+                />
+                <button className="btn btn-primary pull-right" onClick={this.handleClickNewUser}>New User</button>
+              </div>
+              <UserTable users={filteredUsers} onClick={this.handleClickUserRow} />
             </div>
           )}/>
 
@@ -65,11 +97,11 @@ class Users extends Component {
           <Route exact path="/users/:id/edit" render={({ match }) => (
             <div>
               <h3 className="page-header">
-                Edit User
+                Edit User {match.params.id}
                 <Link to="/users" className="pull-right close">X</Link>
               </h3>
               <div className="well">
-                <UserForm onSubmit={this.handleEditUser} user={this.state.users.find(user => user.id === match.params.id)} />
+                <UserForm onSubmit={this.handleEditUser} user={users.find(user => user.id === match.params.id)} />
               </div>
             </div>
           )}/>
