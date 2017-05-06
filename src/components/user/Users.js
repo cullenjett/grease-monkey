@@ -50,17 +50,24 @@ class Users extends Component {
 
   render() {
     const { users, search } = this.state
-    const filteredUsers = users.filter(user => {
-      let userDetailString = [
-        user.id,
-        user.first_name,
-        user.last_name,
-        user.email,
-        user.activation_state
-      ].join("%");
+    let filteredUsers;
 
-      return userDetailString.match(new RegExp(search, 'gi'));
-    });
+    try {
+      filteredUsers = users.filter(user => {
+        let userDetailString = [
+          user.id,
+          user.first_name,
+          user.last_name,
+          user.email,
+          user.activation_state
+        ].join("%");
+
+        return userDetailString.match(new RegExp(search, 'gi'));
+      });
+    } catch (err) {
+      filteredUsers = users;
+    }
+
 
     return (
       <section className="row">
@@ -78,6 +85,7 @@ class Users extends Component {
                       display: 'inline-block'
                     }}
                     placeholder="Search..."
+                    value={search}
                     onChange={this.handleChangeSearch}
                   />
                   <button className="btn btn-primary pull-right" onClick={this.handleClickNewUser}>New User</button>
