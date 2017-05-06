@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import database from '../../database';
 
 import UserTable from './UserTable';
+import UserDetails from './UserDetails';
 import UserForm from './UserForm';
 
 class Users extends Component {
@@ -23,7 +24,7 @@ class Users extends Component {
   }
 
   handleClickUserRow = (userId) => {
-    this.props.history.push(`/users/${userId}/edit`);
+    this.props.history.push(`/users/${userId}`);
   }
 
   handleCreateUser = (userDetails) => {
@@ -64,49 +65,61 @@ class Users extends Component {
     return (
       <section className="row">
         <div className="col-xs-12">
-          <Route exact path="/users" render={() => (
-            <div>
-              <h3 className="page-header">Users</h3>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  style={{
-                    maxWidth: '500px',
-                    display: 'inline-block'
-                  }}
-                  placeholder="Search..."
-                  onChange={this.handleChangeSearch}
-                />
-                <button className="btn btn-primary pull-right" onClick={this.handleClickNewUser}>New User</button>
+          <Switch>
+            <Route exact path="/users" render={() => (
+              <div>
+                <h3 className="page-header">Users</h3>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    style={{
+                      maxWidth: '500px',
+                      display: 'inline-block'
+                    }}
+                    placeholder="Search..."
+                    onChange={this.handleChangeSearch}
+                  />
+                  <button className="btn btn-primary pull-right" onClick={this.handleClickNewUser}>New User</button>
+                </div>
+                <UserTable users={filteredUsers} onClick={this.handleClickUserRow} />
               </div>
-              <UserTable users={filteredUsers} onClick={this.handleClickUserRow} />
-            </div>
-          )}/>
+            )}/>
 
-          <Route exact path="/users/new" render={() => (
-            <div>
-              <h3 className="page-header">
-                Create User
-                <Link to="/users" className="pull-right close">X</Link>
-              </h3>
-              <div className="well">
-                <UserForm onSubmit={this.handleCreateUser} />
+            <Route exact path="/users/new" render={() => (
+              <div>
+                <h3 className="page-header">
+                  Create User
+                  <Link to="/users" className="pull-right close">X</Link>
+                </h3>
+                <div className="well">
+                  <UserForm onSubmit={this.handleCreateUser} />
+                </div>
               </div>
-            </div>
-          )}/>
+            )}/>
 
-          <Route exact path="/users/:id/edit" render={({ match }) => (
-            <div>
-              <h3 className="page-header">
-                Edit User {match.params.id}
-                <Link to="/users" className="pull-right close">X</Link>
-              </h3>
-              <div className="well">
-                <UserForm onSubmit={this.handleEditUser} user={users.find(user => user.id === match.params.id)} />
+            <Route exact path="/users/:id" render={({ match }) => (
+              <div>
+                <h3 className="page-header">
+                  User {match.params.id}
+                  <Link to="/users" className="pull-right close">X</Link>
+                </h3>
+                <UserDetails user={users.find(user => user.id === match.params.id)} />
               </div>
-            </div>
-          )}/>
+            )}/>
+
+            <Route exact path="/users/:id/edit" render={({ match }) => (
+              <div>
+                <h3 className="page-header">
+                  Edit User {match.params.id}
+                  <Link to={`/users/${match.params.id}`} className="pull-right close">X</Link>
+                </h3>
+                <div className="well">
+                  <UserForm onSubmit={this.handleEditUser} user={users.find(user => user.id === match.params.id)} />
+                </div>
+              </div>
+            )}/>
+          </Switch>
         </div>
       </section>
     )

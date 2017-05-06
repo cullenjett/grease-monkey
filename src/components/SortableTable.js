@@ -15,8 +15,7 @@ class SortableTable extends Component {
     }));
   }
 
-  getSortedData() {
-    const { data } = this.props;
+  sortData(data) {
     const { sortBy, sortReverse } = this.state;
 
     if (!sortBy) {
@@ -38,7 +37,7 @@ class SortableTable extends Component {
 
   render() {
     const { data, onClickRow } = this.props;
-    const sortedData = this.getSortedData();
+    const sortedData = this.sortData(data);
     const dataProperties = data[0] ? Object.keys(data[0]) : []
 
     return (
