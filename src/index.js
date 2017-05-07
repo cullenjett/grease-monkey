@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 
 import App from './App';
-import rootReducer from './reducers/index';
+import rootReducer from './reducers';
 import './index.css';
 
 const store = createStore(rootReducer, applyMiddleware(logger));
