@@ -10,6 +10,25 @@ const initialState = {
 
 const users = (state = initialState, action) => {
   switch (action.type) {
+    case 'CREATE_USER':
+      return {
+        byId: {
+          ...state.byId,
+          [action.user.id]: action.user
+        },
+        allIds: [
+          ...state.allIds,
+          action.user.id
+        ]
+      }
+    case 'UPDATE_USER':
+      return {
+        byId: {
+          ...state.byId,
+          [action.user.id]: action.user
+        },
+        allIds: [...state.allIds]
+      }
     default:
       return state;
   }

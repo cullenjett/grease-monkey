@@ -1,26 +1,39 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import UserForm from './UserForm';
-import database from '../../database';
+import { getUser } from '../../reducers/users';
+import { updateUser } from '../../actions/users';
 
 class UserEdit extends Component {
+  handleSubmitUserForm = (user) => {
+    const { updateUser, history } = this.props;
+    updateUser(user);
+    history.push(`/users/${user.id}`);
+  }
+
   render() {
-    const { match, editUser } = this.props;
-    const user = database.users.find(user => user.id === match.params.id);
+    const { user } = this.props;
 
     return (
       <div>
         <h3 className="page-header">
-          Edit User {match.params.id}
-          <Link to={`/users/${match.params.id}`} className="pull-right close">X</Link>
+          Edit User {user.id}
+          <Link to={`/users/${user.id}`} className="pull-right close">X</Link>
         </h3>
         <div className="well">
-          <UserForm onSubmit={editUser} user={user} />
+          <UserForm onSubmit={this.handleSubmitUserForm} user={user} />
         </div>
       </div>
     )
   }
 }
 
-export default UserEdit;
+const mapStateToProps = (state, { match }) => ({
+  user: getUser(state.users, match.params.id)
+});
+
+export default connect(mapStateToProps, {
+  updateUser
+})(UserEdit);
