@@ -6,36 +6,34 @@ import { getAllUsers } from '../../reducers/users';
 
 class UserEdit extends Component {
   state = {
-    search: ''
+    search: '',
+    filteredUsers: this.props.users
   }
 
   handleChangeSearch = (e) => {
     const search = e.target.value;
+    const { users } = this.props;
+    const filteredUsers = users.filter(user => {
+      let userDetailString = [
+        user.id.toLowerCase(),
+        user.first_name.toLowerCase(),
+        user.last_name.toLowerCase(),
+        user.email.toLowerCase(),
+        user.activation_state.toLowerCase()
+      ].join("%");
+
+      return userDetailString.includes(search.toLowerCase());
+    });
+
     this.setState({
-      search
+      search,
+      filteredUsers
     });
   }
 
   render() {
     const { history, users } = this.props;
-    const { search } = this.state;
-    let filteredUsers;
-
-    try {
-      filteredUsers = users.filter(user => {
-        let userDetailString = [
-          user.id,
-          user.first_name,
-          user.last_name,
-          user.email,
-          user.activation_state
-        ].join("%");
-
-        return userDetailString.match(new RegExp(search, 'gi'));
-      });
-    } catch (err) {
-      filteredUsers = users;
-    }
+    const { search, filteredUsers } = this.state;
 
     return (
       <div>

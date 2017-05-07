@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import SortableTableRow from './SortableTableRow';
+
 class SortableTable extends Component {
   state = {
     sortBy: null,
@@ -56,11 +58,12 @@ class SortableTable extends Component {
         </thead>
         <tbody>
           {sortedData.map(data => (
-            <tr key={data.id} onClick={() => onClickRow(data.id)}>
-              {dataProperties.map((propertyName, i) => (
-                <td key={`${data.id}-${propertyName}`}>{data[propertyName]}</td>
-              ))}
-            </tr>
+            <SortableTableRow
+              key={data.id}
+              data={data}
+              dataProperties={dataProperties}
+              onClick={() => onClickRow(data.id)}
+            />
           ))}
         </tbody>
       </table>

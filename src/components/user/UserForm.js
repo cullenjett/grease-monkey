@@ -14,7 +14,7 @@ class UserForm extends Component {
     if (user.id) {
       userDetails.id = user.id;
     } else {
-      userDetails.id = Date.now();
+      userDetails.id = Date.now().toString();
     }
 
     onSubmit(userDetails);
