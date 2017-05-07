@@ -6,7 +6,7 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import Users from './components/user/Users';
+import UserRoutes from './components/user/UserRoutes';
 import Vehicles from './components/vehicle/Vehicles';
 
 class App extends Component {
@@ -15,7 +15,7 @@ class App extends Component {
       <Router>
         <div className="container">
           <Switch>
-            <Route path="/users" component={Users} />
+            <Route path="/users" component={UserRoutes} />
             <Route path="/vehicles" component={Vehicles} />
             <Redirect from="/" to="/users" />
           </Switch>
