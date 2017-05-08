@@ -21,6 +21,10 @@ export const getAllVehicles = (state) => {
   return state.allIds.map(id => state.byId[id]);
 };
 
+export const getVehicle = (state, id) => {
+  return state.byId[id];
+};
+
 export const getVehiclesForUser = (state, userId) => {
   const allVehicles = state.allIds.map(id => state.byId[id]);
   return allVehicles.filter(vehicle => vehicle.relatedUser === +userId);
