@@ -18,10 +18,10 @@ class UserEdit extends Component {
 
     return (
       <div>
-        <h3 className="page-header">
+        <h1 className="page-header">
           Edit User {user.id}
           <Link to={`/users/${user.id}`} className="pull-right close">X</Link>
-        </h3>
+        </h1>
         <div className="well">
           <UserForm onSubmit={this.handleSubmitUserForm} user={user} />
         </div>

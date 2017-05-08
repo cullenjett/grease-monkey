@@ -37,13 +37,13 @@ class UserIndex extends Component {
 
     return (
       <div>
-        <h3 className="page-header">Users</h3>
+        <h1 className="page-header">Users</h1>
         <div className="form-group">
           <input
             type="text"
             className="form-control"
             style={{
-              maxWidth: '500px',
+              maxWidth: '400px',
               display: 'inline-block'
             }}
             placeholder="Search..."

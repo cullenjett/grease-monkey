@@ -15,10 +15,10 @@ class UserNew extends Component {
   render() {
     return (
       <div>
-        <h3 className="page-header">
+        <h1 className="page-header">
           Create User
           <Link to="/users" className="pull-right close">X</Link>
-        </h3>
+        </h1>
         <div className="well">
           <UserForm onSubmit={this.handleSubmitUserForm} />
         </div>
