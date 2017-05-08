@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SortableTable from '../SortableTable';
 import { getAllUsers } from '../../reducers/users';
 
-class UserEdit extends Component {
+class UserIndex extends Component {
   state = {
     search: '',
     filteredUsers: this.props.users
@@ -62,4 +62,4 @@ const mapStateToProps = (state) => ({
   users: getAllUsers(state.users)
 });
 
-export default connect(mapStateToProps)(UserEdit);
+export default connect(mapStateToProps)(UserIndex);
