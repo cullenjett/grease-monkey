@@ -57,6 +57,12 @@ class SortableTable extends Component {
           </tr>
         </thead>
         <tbody>
+          {sortedData.length === 0 &&
+            <tr>
+              <td colSpan={dataProperties.length} style={{textAlign: 'center'}}>No data</td>
+            </tr>
+          }
+
           {sortedData.map(data => (
             <SortableTableRow
               key={data.id}

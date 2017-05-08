@@ -32,7 +32,7 @@ class UserEdit extends Component {
   }
 
   render() {
-    const { history, users } = this.props;
+    const { history } = this.props;
     const { search, filteredUsers } = this.state;
 
     return (
