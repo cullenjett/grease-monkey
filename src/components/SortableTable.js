@@ -4,6 +4,7 @@ import SortableTableRow from './SortableTableRow';
 
 class SortableTable extends Component {
   state = {
+    visibleColumns: this.props.visibleColumns || Object.keys(this.props.data[0]),
     sortBy: null,
     sortReverse: false
   }
@@ -19,12 +20,13 @@ class SortableTable extends Component {
 
   sortData(data) {
     const { sortBy, sortReverse } = this.state;
+    const visibleData = this.getVisibleColumnData()
 
     if (!sortBy) {
-      return data;
+      return visibleData;
     }
 
-    const sortedData = data.sort((a, b) => {
+    const sortedData = visibleData.sort((a, b) => {
       if (a[sortBy] > b[sortBy]) {
         return sortReverse ? -1 : 1;
       }
@@ -37,21 +39,33 @@ class SortableTable extends Component {
     return sortedData;
   }
 
+  getVisibleColumnData() {
+    const { data } = this.props;
+    const { visibleColumns } = this.state;
+    return data.map(datum => {
+      return visibleColumns.reduce((acc, columnName) => {
+        acc[columnName] = datum[columnName];
+        return acc;
+      }, {});
+    });
+  }
+
   render() {
-    const { data, onClickRow } = this.props;
-    const sortedData = this.sortData(data);
-    const dataProperties = data[0] ? Object.keys(data[0]) : []
+    const { onClickRow } = this.props;
+    const { visibleColumns } = this.state;
+    const visibleData = this.getVisibleColumnData();
+    const sortedData = this.sortData(visibleData);
 
     return (
       <table className="table table-hover">
         <thead>
           <tr>
-            {dataProperties.map(propertyName => (
+            {visibleColumns.map(propertyName => (
               <th
                 key={propertyName}
                 onClick={() => this.setSortBy(propertyName)}
               >
-                {propertyName}
+                {capitalize(propertyName)}
               </th>
             ))}
           </tr>
@@ -59,7 +73,7 @@ class SortableTable extends Component {
         <tbody>
           {sortedData.length === 0 &&
             <tr>
-              <td colSpan={dataProperties.length} style={{textAlign: 'center'}}>No data</td>
+              <td colSpan={visibleColumns.length} style={{textAlign: 'center'}}>No data</td>
             </tr>
           }
 
@@ -67,7 +81,7 @@ class SortableTable extends Component {
             <SortableTableRow
               key={data.id}
               data={data}
-              dataProperties={dataProperties}
+              dataProperties={visibleColumns}
               onClick={() => onClickRow(data.id)}
             />
           ))}
@@ -78,3 +92,11 @@ class SortableTable extends Component {
 }
 
 export default SortableTable;
+
+function capitalize(str) {
+  let frags = str.split('_');
+  for (let i=0; i < frags.length; i++) {
+    frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+  }
+  return frags.join(' ');
+}

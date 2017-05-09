@@ -52,7 +52,17 @@ class UserIndex extends Component {
           />
           <button className="btn btn-primary pull-right" onClick={() => history.push('/users/new')}>New User</button>
         </div>
-        <SortableTable data={filteredUsers} onClickRow={(userId) => history.push(`/users/${userId}`)} />
+        <SortableTable
+          data={filteredUsers}
+          visibleColumns={[
+            'id',
+            'first_name',
+            'last_name',
+            'email',
+            'activation_state'
+          ]}
+          onClickRow={(userId) => history.push(`/users/${userId}`)}
+        />
       </div>
     )
   }
