@@ -52,7 +52,11 @@ class VehicleIndex extends Component {
           />
           <button className="btn btn-primary pull-right" onClick={() => history.push('/vehicles/new')}>New Vehicle</button>
         </div>
-        <SortableTable data={filteredVehicles} onClickRow={(vehicleId) => history.push(`/vehicles/${vehicleId}`)} />
+        <SortableTable
+          data={filteredVehicles}
+          visibleColumns={Object.keys(filteredVehicles[0] || [])}
+          onClickRow={(vehicleId) => history.push(`/vehicles/${vehicleId}`)}
+        />
       </div>
     )
   }

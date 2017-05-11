@@ -7,7 +7,7 @@ import { getVehicle } from '../../reducers/vehicles';
 
 class VehicleShow extends Component {
   render() {
-    const { vehicle, history } = this.props;
+    const { vehicle } = this.props;
 
     return (
       <div>

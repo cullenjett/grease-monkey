@@ -20,7 +20,17 @@ class UserShow extends Component {
         <RecordDetails entityName="users" record={user} />
 
         <h3>Vehicles</h3>
-        <SortableTable data={vehicles} onClickRow={(vehicleId) => history.push(`/vehicles/${vehicleId}`)} />
+        <SortableTable
+          data={vehicles}
+          visibleColumns={[
+            'id',
+            'year',
+            'make',
+            'model',
+            'color'
+          ]}
+          onClickRow={(vehicleId) => history.push(`/vehicles/${vehicleId}`)}
+        />
       </div>
     )
   }

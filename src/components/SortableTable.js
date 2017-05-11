@@ -4,7 +4,7 @@ import SortableTableRow from './SortableTableRow';
 
 class SortableTable extends Component {
   state = {
-    visibleColumns: this.props.visibleColumns || Object.keys(this.props.data[0]),
+    visibleColumns: this.props.visibleColumns,
     sortBy: null,
     sortReverse: false
   }
