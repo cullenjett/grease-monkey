@@ -2,12 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SortableTable from '../SortableTable';
+import ColumnPicker from '../ColumnPicker';
 import { getAllUsers } from '../../reducers/users';
 
 class UserIndex extends Component {
   state = {
     search: '',
-    filteredUsers: this.props.users
+    filteredUsers: this.props.users,
+    columns: {
+      id: true,
+      first_name: true,
+      last_name: true,
+      email: true,
+      password: false,
+      activation_state: true
+    }
   }
 
   handleChangeSearch = (e) => {
@@ -31,9 +40,23 @@ class UserIndex extends Component {
     });
   }
 
+  handleChangeSelectedColumns = (e) => {
+    const columnName = e.target.name;
+    const isChecked = e.target.checked;
+    const newColumns = {
+      ...this.state.columns,
+      [columnName]: isChecked
+    };
+
+    this.setState({
+      columns: newColumns
+    });
+  }
+
   render() {
     const { history } = this.props;
-    const { search, filteredUsers } = this.state;
+    const { search, filteredUsers, columns } = this.state;
+    const visibleColumns = Object.keys(columns).filter(column => columns[column] === true)
 
     return (
       <div>
@@ -52,15 +75,13 @@ class UserIndex extends Component {
           />
           <button className="btn btn-primary pull-right" onClick={() => history.push('/users/new')}>New User</button>
         </div>
+        <ColumnPicker
+          columns={columns}
+          onChange={this.handleChangeSelectedColumns}
+        />
         <SortableTable
           data={filteredUsers}
-          visibleColumns={[
-            'id',
-            'first_name',
-            'last_name',
-            'email',
-            'activation_state'
-          ]}
+          visibleColumns={visibleColumns}
           onClickRow={(userId) => history.push(`/users/${userId}`)}
         />
       </div>

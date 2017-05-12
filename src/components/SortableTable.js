@@ -4,7 +4,6 @@ import SortableTableRow from './SortableTableRow';
 
 class SortableTable extends Component {
   state = {
-    visibleColumns: this.props.visibleColumns,
     sortBy: null,
     sortReverse: false
   }
@@ -40,8 +39,7 @@ class SortableTable extends Component {
   }
 
   getVisibleColumnData() {
-    const { data } = this.props;
-    const { visibleColumns } = this.state;
+    const { data, visibleColumns } = this.props;
     return data.map(datum => {
       return visibleColumns.reduce((acc, columnName) => {
         acc[columnName] = datum[columnName];
@@ -51,8 +49,7 @@ class SortableTable extends Component {
   }
 
   render() {
-    const { onClickRow } = this.props;
-    const { visibleColumns } = this.state;
+    const { onClickRow, visibleColumns } = this.props;
     const visibleData = this.getVisibleColumnData();
     const sortedData = this.sortData(visibleData);
 
