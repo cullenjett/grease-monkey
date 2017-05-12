@@ -22,14 +22,15 @@ class UserIndex extends Component {
   handleChangeSearch = (e) => {
     const search = e.target.value;
     const { users } = this.props;
+    const { columns } = this.state;
     const filteredUsers = users.filter(user => {
-      let userDetailString = [
-        user.id.toLowerCase(),
-        user.first_name.toLowerCase(),
-        user.last_name.toLowerCase(),
-        user.email.toLowerCase(),
-        user.activation_state.toLowerCase()
-      ].join("%");
+      let userDetailString = Object.keys(columns).reduce((acc, column) => {
+        if (columns[column] === true) {
+          acc.push(user[column].toLowerCase());
+        }
+
+        return acc;
+      }, []).join("%");
 
       return userDetailString.includes(search.toLowerCase());
     });
