@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CrudRoutes from '../../CrudRoutes';
+import CrudRoutes from '../CrudRoutes';
 import VehicleIndex from './VehicleIndex';
 import VehicleShow from './VehicleShow';
 

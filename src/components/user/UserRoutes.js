@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CrudRoutes from '../../CrudRoutes';
+import CrudRoutes from '../CrudRoutes';
 import UserIndex from './UserIndex';
 import UserEdit from './UserEdit';
 import UserNew from './UserNew';
