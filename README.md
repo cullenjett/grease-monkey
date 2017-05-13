@@ -8,3 +8,9 @@ This bad boy was generated using [Create-React-App](https://github.com/facebooki
 - To install: `npm install`
 - Development server: `npm start`
 - Production build: `npm run build`
+
+### Features
+- Redux and React Router v4
+- Sortable tables
+- Instant search/filtering
+- Customizable columns
