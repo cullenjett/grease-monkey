@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "faker": "^4.1.0",
-    "qs": "^6.4.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
