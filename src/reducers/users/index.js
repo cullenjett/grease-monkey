@@ -1,12 +1,7 @@
-import database from '../../database';
-
 const initialState = {
-  byId: database.users.reduce((acc, user) => {
-    acc[user.id] = user;
-    return acc;
-  }, {}),
-  allIds: database.users.map(user => user.id)
-}
+  byId: {},
+  allIds: []
+};
 
 const users = (state = initialState, action) => {
   switch (action.type) {
@@ -28,6 +23,17 @@ const users = (state = initialState, action) => {
           [action.user.id]: action.user
         },
         allIds: [...state.allIds]
+      }
+    case 'FETCH_USERS_SUCCESS':
+      return {
+        byId: {
+          ...state.byId,
+          ...action.response.reduce((acc, user) => {
+              acc[user.id] = user;
+              return acc;
+            }, {})
+        },
+        allIds: action.response.map(user => user.id)
       }
     default:
       return state;

@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import SortableTable from '../SortableTable';
 import ColumnPicker from '../ColumnPicker';
 import { getAllUsers } from '../../reducers/users';
+import { fetchUsers } from '../../actions/users';
 
 class UserIndex extends Component {
   state = {
     search: '',
-    filteredUsers: this.props.users,
     columns: {
       id: true,
       first_name: true,
@@ -19,25 +19,15 @@ class UserIndex extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.fetchUsers();
+  }
+
   handleChangeSearch = (e) => {
     const search = e.target.value;
-    const { users } = this.props;
-    const { columns } = this.state;
-    const filteredUsers = users.filter(user => {
-      let userDetailString = Object.keys(columns).reduce((acc, column) => {
-        if (columns[column] === true) {
-          acc.push(user[column].toLowerCase());
-        }
-
-        return acc;
-      }, []).join("%");
-
-      return userDetailString.includes(search.toLowerCase());
-    });
 
     this.setState({
-      search,
-      filteredUsers
+      search
     });
   }
 
@@ -54,9 +44,28 @@ class UserIndex extends Component {
     });
   }
 
+  getFilteredUsers() {
+    const { users } = this.props;
+    const { search, columns } = this.state;
+    const filteredUsers = users.filter(user => {
+      let userDetailString = Object.keys(columns).reduce((acc, column) => {
+        if (columns[column] === true) {
+          acc.push(user[column].toLowerCase());
+        }
+
+        return acc;
+      }, []).join("%");
+
+      return userDetailString.includes(search.toLowerCase());
+    });
+
+    return filteredUsers;
+  }
+
   render() {
     const { history } = this.props;
-    const { search, filteredUsers, columns } = this.state;
+    const { search, columns } = this.state;
+    const filteredUsers = this.getFilteredUsers();
     const visibleColumns = Object.keys(columns).filter(column => columns[column] === true)
 
     return (
@@ -86,7 +95,7 @@ class UserIndex extends Component {
           onClickRow={(userId) => history.push(`/users/${userId}`)}
         />
       </div>
-    )
+    );
   }
 }
 
@@ -94,4 +103,6 @@ const mapStateToProps = (state) => ({
   users: getAllUsers(state.users)
 });
 
-export default connect(mapStateToProps)(UserIndex);
+export default connect(mapStateToProps, {
+  fetchUsers
+})(UserIndex);
