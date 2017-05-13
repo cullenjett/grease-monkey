@@ -1,6 +1,6 @@
 # Grease Monkey
 
-React & Redux admin app for CRUD operations.
+React & Redux admin app for CRUD operations. [Demo](https://cullenjett.github.io/grease-monkey)
 
 ### Setup
 This bad boy was generated using [Create-React-App](https://github.com/facebookincubator/create-react-app) so it uses the same commands for installation, development, and production builds:
