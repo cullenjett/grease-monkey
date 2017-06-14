@@ -71,24 +71,32 @@ class UserIndex extends Component {
     return (
       <div>
         <h1 className="page-header">Users</h1>
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            style={{
-              maxWidth: '400px',
-              display: 'inline-block'
-            }}
-            placeholder="Search..."
-            value={search}
-            onChange={this.handleChangeSearch}
-          />
-          <button className="btn btn-primary pull-right" onClick={() => history.push('/users/new')}>New User</button>
+
+        <div className="row">
+          <div className="col-sm-6">
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search..."
+                value={search}
+                onChange={this.handleChangeSearch}
+              />
+            </div>
+
+            <ColumnPicker
+              columns={columns}
+              onChange={this.handleChangeSelectedColumns}
+            />
+          </div>
+
+          <div className="col-sm-6">
+            <div className="form-group">
+              <button className="btn btn-primary pull-right" onClick={() => history.push('/users/new')}>New User</button>
+            </div>
+          </div>
         </div>
-        <ColumnPicker
-          columns={columns}
-          onChange={this.handleChangeSelectedColumns}
-        />
+
         <SortableTable
           data={filteredUsers}
           visibleColumns={visibleColumns}
