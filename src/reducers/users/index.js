@@ -33,7 +33,10 @@ const users = (state = initialState, action) => {
               return acc;
             }, {})
         },
-        allIds: action.response.map(user => user.id)
+        allIds: [...new Set([
+          ...state.allIds,
+          ...action.response.map(user => user.id)
+        ])]
       }
     default:
       return state;
