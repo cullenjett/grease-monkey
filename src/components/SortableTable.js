@@ -25,14 +25,25 @@ class SortableTable extends Component {
       return visibleData;
     }
 
-    const sortedData = visibleData.sort((a, b) => {
-      if (a[sortBy] > b[sortBy]) {
+    const sortData = (a, b) => {
+      if (a > b) {
         return sortReverse ? -1 : 1;
       }
-      if (a[sortBy] < b[sortBy]) {
+      if (a < b) {
         return sortReverse ? 1 : -1;
       }
       return 0;
+    };
+
+    const sortedData = visibleData.sort((a, b) => {
+      const isString = isNaN(a[sortBy]);
+      const isNumber = !isNaN(a[sortBy]);
+
+      if (isString) {
+        return sortData(a[sortBy].toLowerCase(), b[sortBy].toLowerCase());
+      } else if (isNumber) {
+        return sortData(+a[sortBy], +b[sortBy]);
+      }
     });
 
     return sortedData;
