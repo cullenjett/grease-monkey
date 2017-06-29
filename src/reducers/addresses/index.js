@@ -3,9 +3,9 @@ const initialState = {
   allIds: []
 };
 
-const users = (state = initialState, action) => {
+const addresses = (state = initialState, action) => {
   switch (action.type) {
-    case 'CREATE_USER':
+    case 'CREATE_ADDRESS':
       return {
         byId: {
           ...state.byId,
@@ -16,7 +16,7 @@ const users = (state = initialState, action) => {
           action.user.id
         ]
       }
-    case 'UPDATE_USER':
+    case 'UPDATE_ADDRESS':
       return {
         byId: {
           ...state.byId,
@@ -24,7 +24,7 @@ const users = (state = initialState, action) => {
         },
         allIds: [...state.allIds]
       }
-    case 'FETCH_USERS_SUCCESS':
+    case 'FETCH_ADDRESSES_SUCCESS':
       return {
         byId: {
           ...state.byId,
@@ -43,12 +43,17 @@ const users = (state = initialState, action) => {
   }
 };
 
-export default users;
+export default addresses;
 
-export const getAllUsers = (state) => {
+export const getAllAddresses = (state) => {
   return state.allIds.map(id => state.byId[id]) || [];
 };
 
-export const getUser = (state, id) => {
+export const getAddress = (state, id) => {
   return state.byId[id] || {};
+};
+
+export const getAddressesForUser = (state, userId) => {
+  const allAddresses = state.allIds.map(id => state.byId[id]);
+  return allAddresses.filter(address => address.relatedUser === +userId) || [];
 };

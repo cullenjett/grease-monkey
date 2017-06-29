@@ -17,4 +17,13 @@ export const fetchUsers = () => (dispatch) => {
       response
     });
   });
+};
+
+export const fetchUser = (id) => (dispatch) => {
+  return api.users.find(id).then(response => {
+    dispatch({
+      type: 'FETCH_USERS_SUCCESS',
+      response: [response]
+    });
+  });
 }

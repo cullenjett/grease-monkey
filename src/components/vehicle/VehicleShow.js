@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import RecordDetails from '../RecordDetails';
-import { getVehicle } from '../../reducers/vehicles';
+import { getVehicle } from '../../reducers';
 
 class VehicleShow extends Component {
   render() {

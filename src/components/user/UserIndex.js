@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import SortableTable from '../SortableTable';
 import ColumnPicker from '../ColumnPicker';
-import { getAllUsers } from '../../reducers/users';
-import { fetchUsers } from '../../actions/users';
+import { getAllUsers } from '../../reducers';
+import { fetchUsers } from '../../actions';
 
 class UserIndex extends Component {
   state = {

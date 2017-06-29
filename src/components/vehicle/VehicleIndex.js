@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SortableTable from '../SortableTable';
-import { getAllVehicles } from '../../reducers/vehicles';
+import { getAllVehicles } from '../../reducers';
 
 class VehicleIndex extends Component {
   state = {

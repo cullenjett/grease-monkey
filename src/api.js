@@ -8,11 +8,26 @@ class UserApi {
       return DATABASE.users;
     });
   }
+
+  find(id) {
+    return delay(300).then(() => {
+      return DATABASE.users.find(u => u.id === id);
+    });
+  }
+}
+
+class AddressApi {
+  all() {
+    return delay().then(() => {
+      return DATABASE.addresses;
+    });
+  }
 }
 
 class Api {
   constructor() {
     this.users = new UserApi();
+    this.addresses = new AddressApi();
   }
 }
 

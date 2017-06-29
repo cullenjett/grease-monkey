@@ -43,6 +43,8 @@ class SortableTable extends Component {
         return sortData(a[sortBy].toLowerCase(), b[sortBy].toLowerCase());
       } else if (isNumber) {
         return sortData(+a[sortBy], +b[sortBy]);
+      } else {
+        return sortData(a[sortBy], b[sortBy]);
       }
     });
 

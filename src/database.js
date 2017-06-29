@@ -9,7 +9,11 @@ for (let i = 0; i < 100; i++) {
     last_name: faker.name.lastName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    activation_state: faker.address.stateAbbr()
+    activation_state: faker.address.stateAbbr(),
+    primaryAddress: {
+      id: randomNumberInRange(300, 399),
+      ...faker.helpers.userCard().address
+    }
   });
 }
 
@@ -26,9 +30,23 @@ for (let i = 0; i < 100; i++) {
   });
 }
 
+const addresses = [];
+let addressId = 300;
+for (let i = 0; i < 100; i++) {
+  addresses.push({
+    id: (addressId++).toString(),
+    street_1: faker.address.streetAddress(),
+    city: faker.address.city(),
+    state: faker.address.stateAbbr(),
+    zip: faker.address.zipCode(),
+    relatedUser: randomNumberInRange(0, 100)
+  });
+}
+
 export default {
   users,
-  vehicles
+  vehicles,
+  addresses
 };
 
 function randomNumberInRange(min, max) {

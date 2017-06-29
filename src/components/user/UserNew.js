@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import UserForm from './UserForm';
-import { createUser } from '../../actions/users';
+import { createUser } from '../../actions';
 
 class UserNew extends Component {
   handleSubmitUserForm = (user) => {

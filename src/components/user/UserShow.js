@@ -4,12 +4,24 @@ import { Link } from 'react-router-dom';
 
 import RecordDetails from '../RecordDetails';
 import SortableTable from '../SortableTable';
-import { getUser } from '../../reducers/users';
-import { getVehiclesForUser } from '../../reducers/vehicles';
+import { fetchUser } from '../../actions';
+import { getUser } from '../../reducers';
+import { getVehiclesForUser } from '../../reducers';
 
 class UserShow extends Component {
+  componentDidMount() {
+    this.props.fetchUser(this.props.match.params.id);
+  }
+
   render() {
-    const { user, vehicles, history } = this.props;
+    const {
+      user,
+      vehicles,
+      history
+    } = this.props;
+
+    const userDetails = {...user};
+    delete userDetails.primaryAddress;
 
     return (
       <div>
@@ -17,7 +29,7 @@ class UserShow extends Component {
           User {user.id}
           <Link to="/users" className="pull-right close">X</Link>
         </h1>
-        <RecordDetails entityName="users" record={user} />
+        <RecordDetails entityName="users" record={userDetails} />
 
         <h3>Vehicles</h3>
         <SortableTable
@@ -31,6 +43,11 @@ class UserShow extends Component {
           ]}
           onClickRow={(vehicleId) => history.push(`/vehicles/${vehicleId}`)}
         />
+
+        <h3>Addresses</h3>
+        <Link to={`/users/${user.id}/addresses`} className="pull-right">All Addresses</Link>
+        <label>Primary Address:</label>
+        <pre><code>{JSON.stringify(user.primaryAddress, null, 2)}</code></pre>
       </div>
     )
   }
@@ -41,4 +58,6 @@ const mapStateToProps = (state, { match }) => ({
   vehicles: getVehiclesForUser(state.vehicles, match.params.id)
 });
 
-export default connect(mapStateToProps)(UserShow);
+export default connect(mapStateToProps, {
+  fetchUser
+})(UserShow);

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import UserForm from './UserForm';
-import { getUser } from '../../reducers/users';
-import { updateUser } from '../../actions/users';
+import { getUser } from '../../reducers';
+import { updateUser } from '../../actions';
 
 class UserEdit extends Component {
   handleSubmitUserForm = (user) => {
