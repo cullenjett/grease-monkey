@@ -1,4 +1,4 @@
-const createAllIdsReducer = (entityName) => (state = [], action) => {
+const createAllIdsReducer = (entityName, pluralEntityName) => (state = [], action) => {
   switch (action.type) {
     case `CREATE_${entityName.toUpperCase()}`:
       return [
@@ -7,7 +7,7 @@ const createAllIdsReducer = (entityName) => (state = [], action) => {
       ]
     case `UPDATE_${entityName.toUpperCase()}`:
       return [...state]
-    case `FETCH_${entityName.toUpperCase()}S_SUCCESS`:
+    case `FETCH_${pluralEntityName.toUpperCase()}_SUCCESS`:
       return [...new Set([
         ...state,
         ...action.response.map(user => user.id)
