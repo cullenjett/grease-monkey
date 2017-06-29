@@ -3,18 +3,18 @@ const createByIdReducer = (entityName, pluralEntityName) => (state = {}, action)
     case `CREATE_${entityName.toUpperCase()}`:
       return {
         ...state,
-        [action.user.id]: action.user
+        [action.entity.id]: action.entity
       }
     case `UPDATE_${entityName.toUpperCase()}`:
       return {
         ...state,
-        [action.user.id]: action.user
+        [action.entity.id]: action.entity
       }
     case `FETCH_${pluralEntityName.toUpperCase()}_SUCCESS`:
       return {
         ...state,
-        ...action.response.reduce((acc, user) => {
-            acc[user.id] = user;
+        ...action.response.reduce((acc, entity) => {
+            acc[entity.id] = entity;
             return acc;
           }, {})
       }

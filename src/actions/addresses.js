@@ -2,12 +2,12 @@ import api from '../api';
 
 export const updateAddress = (address) => ({
   type: 'UPDATE_ADDRESS',
-  address
+  entity: address
 });
 
 export const createAddress = (address) => ({
   type: 'CREATE_ADDRESS',
-  address
+  entity: address
 });
 
 export const fetchAddresses = () => (dispatch) => {

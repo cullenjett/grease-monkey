@@ -3,14 +3,14 @@ const createAllIdsReducer = (entityName, pluralEntityName) => (state = [], actio
     case `CREATE_${entityName.toUpperCase()}`:
       return [
         ...state,
-        action.user.id
+        action.entity.id
       ]
     case `UPDATE_${entityName.toUpperCase()}`:
       return [...state]
     case `FETCH_${pluralEntityName.toUpperCase()}_SUCCESS`:
       return [...new Set([
         ...state,
-        ...action.response.map(user => user.id)
+        ...action.response.map(entity => entity.id)
       ])]
     default:
       return state;
