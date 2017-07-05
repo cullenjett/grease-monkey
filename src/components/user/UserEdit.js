@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import UserForm from './UserForm';
-import { getUser } from '../../reducers';
-import { updateUser } from '../../actions';
+import { selectUser } from '../../reducers';
+import { updateEntity } from '../../actions';
 
 class UserEdit extends Component {
   handleSubmitUserForm = (user) => {
-    const { updateUser, history } = this.props;
-    updateUser(user);
+    const { updateEntity, history } = this.props;
+    
+    updateEntity('user', user);
     history.push(`/users/${user.id}`);
   }
 
@@ -31,9 +32,9 @@ class UserEdit extends Component {
 }
 
 const mapStateToProps = (state, { match }) => ({
-  user: getUser(state.users, match.params.id)
+  user: selectUser(state.users, match.params.id)
 });
 
 export default connect(mapStateToProps, {
-  updateUser
+  updateEntity
 })(UserEdit);

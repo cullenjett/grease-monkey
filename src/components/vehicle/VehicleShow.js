@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import RecordDetails from '../RecordDetails';
-import { getVehicle } from '../../reducers';
+import { selectVehicle } from '../../reducers';
 
 class VehicleShow extends Component {
   render() {
@@ -22,7 +22,7 @@ class VehicleShow extends Component {
 }
 
 const mapStateToProps = (state, { match }) => ({
-  vehicle: getVehicle(state.vehicles, match.params.id)
+  vehicle: selectVehicle(state.vehicles, match.params.id)
 });
 
 export default connect(mapStateToProps)(VehicleShow);

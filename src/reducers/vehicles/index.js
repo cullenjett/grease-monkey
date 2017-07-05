@@ -17,15 +17,15 @@ const vehicles = (state = initialState, action) => {
 
 export default vehicles;
 
-export const getAllVehicles = (state) => {
+export const selectAllVehicles = (state) => {
   return state.allIds.map(id => state.byId[id]) || [];
 };
 
-export const getVehicle = (state, id) => {
+export const selectVehicle = (state, id) => {
   return state.byId[id] || {};
 };
 
-export const getVehiclesForUser = (state, userId) => {
+export const selectVehiclesForUser = (state, userId) => {
   const allVehicles = state.allIds.map(id => state.byId[id]);
   return allVehicles.filter(vehicle => vehicle.relatedUser === +userId) || [];
 };

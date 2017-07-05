@@ -87,9 +87,9 @@ class SortableTable extends Component {
             </tr>
           }
 
-          {sortedData.map(data => (
+          {sortedData.map((data, index) => (
             <SortableTableRow
-              key={data.id}
+              key={data.id || index}
               data={data}
               dataProperties={visibleColumns}
               onClick={() => onClickRow(data.id)}

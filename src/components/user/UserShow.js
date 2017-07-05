@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 
 import RecordDetails from '../RecordDetails';
 import SortableTable from '../SortableTable';
-import { fetchUser } from '../../actions';
-import { getUser } from '../../reducers';
-import { getVehiclesForUser } from '../../reducers';
+import { fetchEntity } from '../../actions';
+import { selectUser, selectVehiclesForUser } from '../../reducers';
 
 class UserShow extends Component {
   componentDidMount() {
-    this.props.fetchUser(this.props.match.params.id);
+    this.props.fetchEntity('user', this.props.match.params.id);
   }
 
   render() {
@@ -54,10 +53,10 @@ class UserShow extends Component {
 }
 
 const mapStateToProps = (state, { match }) => ({
-  user: getUser(state.users, match.params.id),
-  vehicles: getVehiclesForUser(state.vehicles, match.params.id)
+  user: selectUser(state.users, match.params.id),
+  vehicles: selectVehiclesForUser(state.vehicles, match.params.id)
 });
 
 export default connect(mapStateToProps, {
-  fetchUser
+  fetchEntity
 })(UserShow);

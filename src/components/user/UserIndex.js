@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import SortableTable from '../SortableTable';
 import ColumnPicker from '../ColumnPicker';
-import { getAllUsers } from '../../reducers';
-import { fetchUsers } from '../../actions';
+import { selectAllUsers } from '../../reducers';
+import { fetchEntities } from '../../actions';
 
 class UserIndex extends Component {
   state = {
@@ -20,7 +20,7 @@ class UserIndex extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchUsers();
+    this.props.fetchEntities('user');
   }
 
   handleChangeSearch = (e) => {
@@ -108,9 +108,9 @@ class UserIndex extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  users: getAllUsers(state.users)
+  users: selectAllUsers(state.users)
 });
 
 export default connect(mapStateToProps, {
-  fetchUsers
+  fetchEntities
 })(UserIndex);

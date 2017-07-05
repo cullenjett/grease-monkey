@@ -2,7 +2,7 @@ import DATABASE from './database';
 
 const DELAY = 500;
 
-class UserApi {
+class UsersApi {
   all() {
     return delay().then(() => {
       return DATABASE.users;
@@ -16,7 +16,7 @@ class UserApi {
   }
 }
 
-class AddressApi {
+class AddressesApi {
   all() {
     return delay().then(() => {
       return DATABASE.addresses;
@@ -26,8 +26,8 @@ class AddressApi {
 
 class Api {
   constructor() {
-    this.users = new UserApi();
-    this.addresses = new AddressApi();
+    this.users = new UsersApi();
+    this.addresses = new AddressesApi();
   }
 }
 

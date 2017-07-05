@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SortableTable from '../SortableTable';
-import { getAllVehicles } from '../../reducers';
+import { selectAllVehicles } from '../../reducers';
 
 class VehicleIndex extends Component {
   state = {
@@ -63,7 +63,7 @@ class VehicleIndex extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  vehicles: getAllVehicles(state.vehicles)
+  vehicles: selectAllVehicles(state.vehicles)
 });
 
 export default connect(mapStateToProps)(VehicleIndex);

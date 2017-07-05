@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import UserForm from './UserForm';
-import { createUser } from '../../actions';
+import { createEntity } from '../../actions';
 
 class UserNew extends Component {
   handleSubmitUserForm = (user) => {
-    const { createUser, history } = this.props;
-    createUser(user);
+    const { createEntity, history } = this.props;
+    
+    createEntity('user', user);
     history.push('/users');
   }
 
@@ -28,5 +29,5 @@ class UserNew extends Component {
 }
 
 export default connect(null, {
-  createUser
+  createEntity
 })(UserNew);

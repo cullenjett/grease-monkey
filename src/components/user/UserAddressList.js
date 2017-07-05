@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchAddresses } from '../../actions/addresses';
-import { getUser } from '../../reducers';
-import { getAddressesForUser } from '../../reducers';
+import { fetchEntities } from '../../actions';
+import { selectUser, selectAddressesForUser } from '../../reducers';
 
 class UserAddressList extends Component {
   componentDidMount() {
-    this.props.fetchAddresses();
+    this.props.fetchEntities('address');
   }
 
   render() {
@@ -49,10 +48,10 @@ class UserAddressList extends Component {
 }
 
 const mapStateToProps = (state, { match }) => ({
-  user: getUser(state.users, match.params.id),
-  addresses: getAddressesForUser(state.addresses, match.params.id)
+  user: selectUser(state.users, match.params.id),
+  addresses: selectAddressesForUser(state.addresses, match.params.id)
 });
 
 export default connect(mapStateToProps, {
-  fetchAddresses
+  fetchEntities
 })(UserAddressList);
