@@ -2,15 +2,25 @@ import pluralize from 'pluralize';
 
 import api from '../api';
 
-export const updateEntity = (entityName, entity) => ({
-  type: `UPDATE_${entityName.toUpperCase()}`,
-  entity
-});
+export const updateEntity = (entityName, entity) => (dispatch) => {
+  const pluralEntityName = pluralize(entityName, 2);
+  return api[pluralEntityName].update(entity).then(entity => {
+    dispatch({
+      type: `UPDATE_${entityName.toUpperCase()}`,
+      entity
+    });
+  });
+};
 
-export const createEntity = (entityName, entity) => ({
-  type: `CREATE_${entityName.toUpperCase()}`,
-  entity
-});
+export const createEntity = (entityName, entity) => (dispatch) => {
+  const pluralEntityName = pluralize(entityName, 2);
+  return api[pluralEntityName].create(entity).then(entity => {
+    dispatch({
+      type: `CREATE_${entityName.toUpperCase()}`,
+      entity
+    });
+  });
+};
 
 export const fetchEntity = (entityName, id) => (dispatch) => {
   const pluralEntityName = pluralize(entityName, 2);

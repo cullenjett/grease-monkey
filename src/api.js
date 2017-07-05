@@ -1,17 +1,48 @@
 import DATABASE from './database';
 
+let {
+  users,
+  addresses,
+  vehicles
+} = DATABASE;
+
 const DELAY = 500;
 
 class UsersApi {
   all() {
     return delay().then(() => {
-      return DATABASE.users;
+      return users;
     });
   }
 
   find(id) {
     return delay(300).then(() => {
-      return DATABASE.users.find(u => u.id === id);
+      return users.find(u => u.id === id);
+    });
+  }
+
+  create(user) {
+    return delay().then(() => {
+      users = [
+        ...users,
+        user
+      ];
+
+      return user;
+    });
+  }
+
+  update(user) {
+    return delay().then(() => {
+      users = users.map(u => {
+        if (u.id === user.id) {
+          return user;
+        } else {
+          return u;
+        }
+      });
+
+      return user;
     });
   }
 }
@@ -19,7 +50,7 @@ class UsersApi {
 class AddressesApi {
   all() {
     return delay().then(() => {
-      return DATABASE.addresses;
+      return addresses;
     });
   }
 }
