@@ -25,10 +25,10 @@ class VehicleIndex extends Component {
       return vehicleDetailString.includes(search.toLowerCase());
     });
 
-    this.setState({
+    this.setState(() => ({
       search,
       filteredVehicles
-    });
+    }));
   }
 
   render() {

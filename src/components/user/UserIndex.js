@@ -26,9 +26,9 @@ class UserIndex extends Component {
   handleChangeSearch = (e) => {
     const search = e.target.value;
 
-    this.setState({
+    this.setState(() => ({
       search
-    });
+    }));
   }
 
   handleChangeSelectedColumns = (e) => {
@@ -39,9 +39,9 @@ class UserIndex extends Component {
       [columnName]: isChecked
     };
 
-    this.setState({
+    this.setState(() => ({
       columns: newColumns
-    });
+    }));
   }
 
   getFilteredUsers() {

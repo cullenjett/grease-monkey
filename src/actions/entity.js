@@ -23,7 +23,7 @@ export const fetchEntity = (entityName, id) => (dispatch) => {
   });
 };
 
-  export const fetchEntities = (entityName) => (dispatch) => {
+export const fetchEntities = (entityName) => (dispatch) => {
   const pluralEntityName = pluralize(entityName, 2);
 
   return api[pluralEntityName].all().then(response => {
