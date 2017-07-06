@@ -11,6 +11,8 @@ This bad boy was generated using [Create-React-App](https://github.com/facebooki
 
 ### Features
 - Redux and React Router v4
+- Abstracted CRUD actions and reducers for models
 - Sortable tables
+- Dynamically visible table columns
 - Instant search/filtering
-- Customizable columns
+- Breadcrumbs

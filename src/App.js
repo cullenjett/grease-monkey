@@ -3,10 +3,10 @@ import {
   HashRouter as Router,
   NavLink,
   Switch,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom';
 
+import Breadcrumbs from './components/Breadcrumbs';
 import UserRoutes from './components/user/UserRoutes';
 import VehicleRoutes from './components/vehicle/VehicleRoutes';
 
@@ -17,7 +17,8 @@ class App extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-sm-3">
-              <div className="list-group" style={{marginTop: '88px'}}>
+              <Breadcrumbs />
+              <div className="list-group">
                 <NavLink to="/users" className="list-group-item" activeClassName="active">Users</NavLink>
                 <NavLink to="/vehicles" className="list-group-item" activeClassName="active">Vehicles</NavLink>
               </div>
@@ -27,7 +28,7 @@ class App extends Component {
               <Switch>
                 <Route path="/users" component={UserRoutes} />
                 <Route path="/vehicles" component={VehicleRoutes} />
-                <Redirect from="/" to="/users" />
+                <Route render={() => <h1 className="page-header">Grease Monkey</h1>} />
               </Switch>
             </div>
           </div>

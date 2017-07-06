@@ -2,8 +2,7 @@ import DATABASE from './database';
 
 let {
   users,
-  addresses,
-  vehicles
+  addresses
 } = DATABASE;
 
 const DELAY = 500;
